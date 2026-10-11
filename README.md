@@ -1,200 +1,52 @@
-# Flow Do List
+Flow Do List
 
-A modern task management application built with Clean Architecture and comprehensive testing strategies, demonstrating advanced Android development practices.
+A task management app for Android, built with Kotlin and Jetpack Compose using Clean Architecture, MVVM, Room and tests from the domain layer through to the UI.
 
-## 🎯 Overview
+Features
+Create, edit and delete tasks with a title and description
+Colour-code tasks
+Sort tasks by date, title or colour, in ascending or descending order
+Tasks are saved locally with Room, so they persist between sessions
+Material 3 UI built entirely in Jetpack Compose
+Architecture
 
-Flow Do List is a feature-rich task management app that showcases production-ready Android development with emphasis on maintainable architecture, comprehensive testing, and modern UI design. Built using the latest Android technologies including Jetpack Compose, Clean Architecture, and extensive testing coverage.
+The app follows Clean Architecture, organised by feature:
 
-## ✨ Features
+feature_task/
+├── presentation/   Compose screens, ViewModels (MVVM), UI events and state
+├── domain/         Use cases, Task model, repository interface, sorting logic
+└── data/           Room database, DAO, repository implementation
+MVVM: ViewModels hold screen state and handle UI events from Compose
+Use cases: AddTask, DeleteTask, GetTask and GetTasks, grouped in TaskUseCases
+Sorting: a sealed TaskOrder class (Title / Date / Colour) combined with OrderType (Ascending / Descending)
+Repository pattern: the domain layer depends on an interface, so tests can use a fake repository
+Dependency injection: Hilt, with a separate test module for instrumented tests
+Tech stack
 
-- **Task Management**: Create, edit, delete, and organize tasks efficiently
-- **Smart Sorting**: Multiple sorting options (by date, title, color, priority)
-- **Color Coding**: Visual organization with customizable task colors
-- **Persistent Storage**: Reliable local data storage with Room database
-- **Clean UI**: Modern Material Design interface with Jetpack Compose
-- **Responsive Design**: Optimized for different screen sizes and orientations
+Kotlin · Jetpack Compose · Material 3 · Room · Coroutines & Flow · Hilt · Navigation Compose
 
-## 🏗️ Architecture
+Testing
+Level	What's tested	Tools
+Unit	GetTasks sorts correctly by title, date and colour in both directions (6 tests)	JUnit, fake repository
+UI	Tasks screen behaviour	Compose UI testing, Hilt testing
+End-to-end	Creating and viewing a task through the full app	Compose UI testing, Hilt test module
+Running the project
 
-### Clean Architecture Implementation
-```
-📦 Flow Do List
-├── 🎨 Presentation Layer
-│   ├── UI Components (Jetpack Compose)
-│   ├── ViewModels (MVVM Pattern)
-│   └── Navigation & State Management
-├── 🧠 Domain Layer
-│   ├── Use Cases (Business Logic)
-│   ├── Domain Models
-│   └── Repository Interfaces
-└── 📊 Data Layer
-    ├── Repository Implementation
-    ├── Room Database
-    └── Data Models & DAOs
-```
+Requirements: Android Studio (recent version), JDK 17, Android SDK API 24+
 
-### Key Design Patterns
-- **MVVM (Model-View-ViewModel)**: Reactive UI with proper separation of concerns
-- **Repository Pattern**: Abstraction layer for data access
-- **Use Case Pattern**: Encapsulated business logic with single responsibility
-- **Dependency Injection**: Modular architecture with Hilt
-- **Observer Pattern**: Reactive programming with StateFlow
+bash
+git clone https://github.com/omarefaruk/FlowDoList.git
 
-## 🛠️ Tech Stack
+Open the project in Android Studio and run the app configuration.
 
-### Core Technologies
-- **Kotlin** - Modern, concise, null-safe programming language
-- **Jetpack Compose** - Declarative UI framework
-- **Clean Architecture** - Scalable and maintainable code structure
-- **MVVM Pattern** - Reactive architecture with proper separation
+bash
+./gradlew test                  # unit tests
+./gradlew connectedAndroidTest  # UI and end-to-end tests (needs an emulator or device)
+What I'd add next
+ViewModel unit tests
+Room DAO tests against an in-memory database
+Expose ViewModel state as StateFlow
+Search and filtering
+Contact
 
-### Android Jetpack
-- **Room Database** - Local data persistence with type-safe SQL
-- **Hilt** - Dependency injection for modular design
-- **Navigation Compose** - Type-safe navigation between screens
-- **ViewModel** - Lifecycle-aware state management
-
-### Development & Quality
-- **Kotlin Coroutines** - Asynchronous programming
-- **StateFlow** - Reactive state management
-- **Material 3** - Modern design system
-- **Gradle Kotlin DSL** - Modern build configuration
-
-## 🧪 Testing Strategy
-
-### Comprehensive Test Coverage
-This project demonstrates industry-standard testing practices across all architectural layers:
-
-#### Unit Tests
-- **ViewModel Testing**: State management and business logic validation
-- **Use Case Testing**: Isolated business logic testing with mocked dependencies
-- **Repository Testing**: Data layer testing with fake implementations
-
-#### Integration Tests
-- **Database Testing**: Room database operations and queries
-- **Feature Testing**: End-to-end component interaction
-- **Navigation Testing**: Screen transitions and data flow
-
-#### UI Tests
-- **Compose Testing**: UI component behavior and user interactions
-- **End-to-End Testing**: Complete user journey validation
-- **Accessibility Testing**: Ensuring proper accessibility support
-
-### Testing Tools
-- **JUnit** - Unit testing framework
-- **MockK** - Mocking library for Kotlin
-- **Compose Testing** - UI testing for Jetpack Compose
-- **Hilt Testing** - Dependency injection testing
-- **Coroutine Testing** - Asynchronous code testing utilities
-
-## 📦 Project Setup
-
-### Prerequisites
-- Android Studio Flamingo or newer
-- JDK 17+
-- Android SDK API 24+
-
-### Installation
-```bash
-# Clone the repository
-git clone https://github.com/ofaruk0169/FlowDoList.git
-
-# Open in Android Studio
-cd FlowDoList
-# File -> Open -> Select project directory
-
-# Build and run
-./gradlew assembleDebug
-```
-
-### Running Tests
-```bash
-# Run all unit tests
-./gradlew test
-
-# Run instrumentation tests
-./gradlew connectedAndroidTest
-
-# Generate test coverage report
-./gradlew jacocoTestReport
-```
-
-## 🚀 Getting Started
-
-1. **Clone the repository** and open in Android Studio
-2. **Sync the project** with Gradle files
-3. **Build and run** on emulator or physical device
-4. **Start creating tasks** and explore the features
-5. **Run tests** to see the comprehensive testing strategy
-
-## 📱 App Features
-
-### Task Creation & Management
-- Create new tasks with title and description
-- Edit existing tasks with full CRUD operations
-- Delete tasks with confirmation dialogs
-- Color-code tasks for visual organization
-
-### Smart Organization
-- Sort tasks by date created (newest/oldest)
-- Sort alphabetically by title (A-Z/Z-A)
-- Sort by color for visual grouping
-- Filter and search functionality
-
-### User Experience
-- Intuitive Material Design interface
-- Smooth animations and transitions
-- Responsive layouts for all screen sizes
-- Dark/Light theme support
-
-## 🎯 What This Project Demonstrates
-
-### For Employers & Developers
-- **Production-Ready Architecture**: Scalable Clean Architecture implementation
-- **Testing Excellence**: Comprehensive testing strategy across all layers
-- **Modern Android Development**: Latest frameworks and best practices
-- **Code Quality**: Clean, maintainable, and well-documented code
-
-### Technical Expertise
-- Advanced architectural patterns and SOLID principles
-- Comprehensive testing strategies and quality assurance
-- Modern UI development with Jetpack Compose
-- Database design and local data management
-
-## 📈 Technical Highlights
-
-### Code Quality
-- **Clean Architecture** with proper layer separation
-- **SOLID Principles** implementation throughout
-- **Dependency Injection** for modular, testable code
-- **Error Handling** with user-friendly feedback
-
-### Performance & UX
-- **Efficient Database Operations** with Room
-- **Smooth UI Animations** with Compose
-- **Memory Management** with lifecycle-aware components
-- **Responsive Design** for all device sizes
-
-## 🤝 Contributing
-
-While this is primarily a portfolio project, feedback and suggestions are welcome! Feel free to:
-
-1. **Open Issues** for bugs or feature suggestions
-2. **Submit Pull Requests** for improvements
-3. **Star the Repository** if you find it useful
-4. **Share Feedback** on the implementation
-
-## 📞 Contact
-
-**Omare Faruk** - Android Developer
-
-- **GitHub**: [ofaruk0169](https://github.com/ofaruk0169)
-- **LinkedIn**: [omarefaruk](https://www.linkedin.com/in/omarefaruk/)
-- **Email**: [omarefaruk@outlook.com]
-
----
-
-⭐ **Star this repository if it demonstrates the kind of Android development quality you're looking for!**
-
-💡 This project represents production-quality Android development with emphasis on testing, clean architecture, and modern development practices.
+Omare Faruk · Android Developer · GitHub · LinkedIn
